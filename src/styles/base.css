@@ -1,0 +1,262 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--navy-900);
+  color: var(--white);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* overflow: clip (bukan hidden) supaya panel yang digeser keluar layar
+   tidak membuat area bisa ter-scroll secara tidak sengaja */
+#app {
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+}
+
+#painter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+#painter.is-pano {
+  cursor: grab;
+}
+#painter.is-pano.is-dragging {
+  cursor: grabbing;
+}
+
+#stage,
+#ui,
+#overlay {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+}
+#stage {
+  z-index: 1;
+}
+#ui {
+  z-index: 5;
+}
+#overlay {
+  z-index: 10;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+:focus-visible {
+  outline: 2px dashed var(--sky-300);
+  outline-offset: 4px;
+}
+[hidden] {
+  display: none !important;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+}
+
+/* ------------------------------ glow ------------------------------ */
+.glow {
+  position: absolute;
+  z-index: 0;
+  inset: 18% 12%;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.glow--blue {
+  background: rgba(27, 160, 226, 0.5);
+  filter: blur(60px);
+}
+.glow--navy {
+  background: rgba(0, 31, 69, 0.6);
+  filter: blur(56px);
+}
+.glow--light {
+  background: rgba(200, 235, 255, 0.55);
+  filter: blur(66px);
+}
+
+/* --------------------------- judul besar --------------------------- */
+.title-root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: min(1.5vh, 2vw);
+  color: var(--white);
+  text-align: center;
+  pointer-events: none;
+}
+.label-arc {
+  position: relative;
+  z-index: 2;
+  width: min(62vh, 78vw);
+  height: min(9vh, 13vw);
+  overflow: visible;
+}
+.label-text {
+  fill: var(--sky-300);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+/* ukuran judul diatur di .title-rows supaya jarak antar kata (em) ikut besar huruf */
+.title-rows {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  font-size: min(7vh, 10vw);
+  font-weight: inherit;
+}
+@media (min-width: 48rem) {
+  .title-rows {
+    font-size: min(14vh, 8.6vw);
+  }
+}
+.title-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.24em;
+}
+.title-mask {
+  display: block;
+  overflow: hidden;
+  margin: 0 -0.18em -0.1em;
+  padding: 0 0.18em 0.1em;
+}
+.word-tilt {
+  display: block;
+  transform: rotate(var(--rot, 0deg)) skew(-4deg);
+}
+.word {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1em;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  text-shadow:
+    calc(0px - var(--shadow-dx, 0px)) calc(0.05em - var(--shadow-dy, 0px)) 0 var(--title-shadow, var(--navy)),
+    0 0 0.35em rgba(127, 208, 245, 0.35);
+  text-transform: uppercase;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* ---------------- narasi kata-per-kata (intro & outro) ---------------- */
+.stagger-block {
+  position: absolute;
+  top: 80%;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+@media (min-height: 640px) {
+  .stagger-block {
+    top: 80%;
+  }
+}
+.stagger-text p {
+  position: relative;
+  z-index: 1;
+  max-width: 360px;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .stagger-text p {
+    max-width: 460px;
+    font-size: 20px;
+  }
+}
+.stagger-text .glow {
+  inset: -40% -4%;
+  background: rgba(0, 31, 69, 0.55);
+  filter: blur(36px);
+}
+.stagger-line {
+  display: block;
+}
+.stagger-word {
+  display: inline-block;
+  opacity: 0;
+  background-image: radial-gradient(ellipse 340px 80px at 50% 50%, #ffffff, #bfe6fb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(127, 208, 245, 0.55));
+  -webkit-text-fill-color: transparent;
+  transform-origin: center bottom;
+  will-change: transform, opacity;
+}
+
+.reveal-char {
+  display: inline-block;
+}
+
+/* mode ?debug */
+.debug-box {
+  position: absolute;
+  bottom: 12px;
+  left: 90px;
+  z-index: 99;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #7fffb0;
+  font: 12px/1.4 ui-monospace, Consolas, monospace;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
