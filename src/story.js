@@ -19,7 +19,6 @@
 // Media 360 (equirectangular). kind placeholder: 'indoor' | 'outdoor'
 const pano = (src, kind = 'indoor', palette) => ({ pano: src, placeholder: { kind, palette, seed: src } });
 // Media foto biasa (bukan 360). kind placeholder: 'room' | 'landscape' | 'table' | 'fabric'
-// eslint-disable-next-line no-unused-vars
 const photo = (image, kind = 'room', palette) => ({ image, placeholder: { kind, palette, seed: image } });
 // Video 360 (mp4 equirectangular):  { pano: true, video: '/assets/360/x.mp4', placeholder: {...} }
 
@@ -32,7 +31,7 @@ const PAL = {
 
 export default {
   meta: {
-    title: 'Campus Tour 360° PPTI & PPBP',
+    title: 'What if I were a PPTI/PPBP awardee?',
     lang: 'id',
     loadingLabel: 'memuat',
     hint360: 'Geser layar untuk melihat sekeliling',
@@ -41,21 +40,21 @@ export default {
       // Kalau file tidak ada, dipakai wordmark teks.
       logo: '/assets/brand/logo.png',
       wordmark: 'BCA',
-      title: 'Campus Tour 360°',
-      subtitle: 'PPTI · PPBP',
-      ariaLabel: 'Campus Tour 360 BCA Learning Institute',
+      title: 'What if I were an awardee?',
+      subtitle: 'PPTI · PPBP · cerita interaktif',
+      ariaLabel: 'Cerita interaktif awardee PPTI dan PPBP di BCA Learning Institute',
     },
   },
 
   // Gaya lukisan + kamera 360 (lihat src/core/painter.js)
   art: {
-    paint: 0.85, // 0 = foto asli, 1 = full lukisan
+    paint: 0.55, // 0 = foto asli, 1 = full lukisan; foto lokasi tetap terbaca
     brush: 2.2, // besar sapuan kuas (px)
-    stroke: 0.4, // relief kuas 0..1
+    stroke: 0.3, // relief kuas 0..1
     scratch: 0.05,
-    edge: 26, // tebal tepi kuas (px)
+    edge: 20, // tebal tepi kuas (px)
     edgeColor: '#0a4a9c', // biru BCA
-    grade: 0.18, // duotone biru 0..0.5
+    grade: 0.12, // duotone biru 0..0.5
     shadowTint: '#0a2a66',
     highlightTint: '#fff9f0',
     fov: 75,
@@ -70,19 +69,19 @@ export default {
   /* ============================== PROLOG ================================ */
   intro: {
     gate: {
-      media: pano('/assets/360/manuscript.jpg', 'outdoor'),
+      media: photo('/assets/photos/manuscript-building.webp', 'landscape'),
       view: { yaw: 0, pitch: 8, fov: 80 },
       cardLabel: 'Kartu Peserta',
       kicker: 'Selamat datang di',
-      rows: ['CAMPUS', 'TOUR 360°'],
+      rows: ['WHAT IF I WERE', 'AN AWARDEE?'],
       kickerBottom: 'BCA Learning Institute',
-      text: 'Jelajahi setiap sudut kampus dan claim semua benefitnya.',
+      text: 'Bayangkan satu hari sebagai peserta PPTI atau PPBP. Jelajahi ruangnya, ikuti pilihanmu.',
       tags: ['PPTI', 'PPBP'],
-      number: 'NO. 2026 · 360°',
-      cta: 'Mulai jelajah',
+      number: 'PPTI · PPBP · 360°',
+      cta: 'Mulai ceritanya',
       hint: 'Nyalakan suara untuk pengalaman terbaik.',
     },
-    media: pano('/assets/360/manuscript.jpg', 'outdoor'),
+    media: photo('/assets/photos/manuscript-building.webp', 'landscape'),
     view: { yaw: 0, pitch: 4, fov: 70 },
     music: null, // '/assets/audio/track-intro.mp3'
     narration: { src: null, duration: 9 }, // src: '/assets/audio/vo-prolog.mp3'
@@ -99,7 +98,7 @@ export default {
       title: 'Lingkungan\nBelajar',
       theme: { card: '#0060af', card2: '#1ba0e2', glow: 'blue', waves: ['#7fd0f5', '#1ba0e2', '#0060af'] },
       cover: {
-        media: pano('/assets/360/manuscript.jpg', 'outdoor'),
+        media: photo('/assets/photos/manuscript-building.webp', 'landscape'),
         view: { yaw: 20, pitch: 10, fov: 85 },
         rows: ['LINGKUNGAN', 'BELAJAR'],
         explore: 'Jelajahi',
@@ -111,16 +110,16 @@ export default {
         kicker: 'Buku saku',
         title: 'Kampus BLI',
         sections: [
-          { type: 'p', text: '[Tulis pengenalan singkat kampus di sini.]' },
-          { type: 'image', src: '/assets/foto/manuscript.jpg', caption: 'The Manuscript' },
+          { type: 'p', text: 'BCA Learning Institute di Sentul menjadi tempat belajar sekaligus tinggal selama program berlangsung.' },
+          { type: 'image', src: '/assets/photos/manuscript-building.webp', caption: 'The Manuscript' },
           { type: 'caps', text: 'PPTI · PPBP' },
-          { type: 'p', text: '[Cerita tentang lingkungan belajar, jadwal, atau budaya kampus.]' },
+          { type: 'p', text: 'Kegiatan berlangsung Senin sampai Jumat, memadukan kelas, praktik, dan kegiatan pengembangan diri.' },
           { type: 'ornament' },
           {
             type: 'photos',
             items: [
-              { src: '/assets/foto/kelas.jpg', caption: 'Ruang kelas' },
-              { src: '/assets/foto/break.jpg', caption: 'Break di depan kelas' },
+              { src: '/assets/360/kelas.jpg', caption: 'Ruang kelas' },
+              { src: '/assets/360/depan-kelas.jpg', caption: 'Break di depan kelas' },
               { src: '/assets/foto/makan.jpg', caption: 'Area makan' },
             ],
           },
@@ -131,10 +130,10 @@ export default {
         {
           id: 'manuscript',
           location: 'The Manuscript',
-          media: pano('/assets/360/manuscript.jpg', 'outdoor'),
+          media: photo('/assets/photos/manuscript-building.webp', 'landscape'),
           view: { yaw: 0, pitch: 12, fov: 70 },
-          narration: { cues: [{ t: 0, text: 'Ini The Manuscript, ikon kampus kita.' }, { t: 3.2, text: '[Tambahkan narasi tentang monumen ini.]' }] },
-          intro: { rows: ['The Manuscript'], text: '[Deskripsi singkat monumen The Manuscript.]' },
+          narration: { cues: [{ t: 0, text: 'Ini The Manuscript, ikon kampus kita.' }, { t: 3.2, text: 'Dari sinilah tur dimulai, sebelum masuk ke ruang kelas.' }] },
+          intro: { rows: ['The Manuscript'], text: 'Monumen ikonik di depan kampus, titik foto wajib setiap angkatan baru dan penanda awal perjalanan 30 bulan.' },
           nextLabel: 'Masuk ke kelas',
         },
         {
@@ -143,7 +142,7 @@ export default {
           media: pano('/assets/360/kelas.jpg', 'indoor', PAL.kelas),
           view: { yaw: 0, pitch: -4 },
           narration: { cues: [{ t: 0, text: 'Di ruang kelas inilah hari-hari belajar dimulai.' }] },
-          intro: { rows: ['Ruang', 'Kelas'], text: '[Ceritakan suasana ruang kelas.]' },
+          intro: { rows: ['Ruang', 'Kelas'], text: 'Kelas kecil, laptop menyala, dan diskusi yang cair. Materi dibahas sampai benar-benar dipahami bersama.' },
         },
         {
           id: 'break-pagi',
@@ -151,7 +150,7 @@ export default {
           media: pano('/assets/360/depan-kelas.jpg', 'indoor', PAL.kelas),
           view: { yaw: 90, pitch: 0 },
           narration: { cues: [{ t: 0, text: 'Break pagi! Waktunya santai sebentar di depan kelas.' }] },
-          intro: { rows: ['Break', 'Pagi'], text: '[Momen/case saat break pagi.]' },
+          intro: { rows: ['Break', 'Pagi'], text: 'Jeda singkat di depan kelas: waktunya meregangkan badan, beli minuman, dan bertukar cerita sebentar.' },
           claim: { id: 'break-siang', icon: '☕', kicker: 'Notifikasi', label: 'Break Siang', text: 'Jadwal break siang sudah terbuka.' },
         },
         {
@@ -207,7 +206,7 @@ export default {
             rivalRate: 5,
             timeLimit: 8,
             win: { value: 'stall', kicker: 'Kamu menang!', title: 'Dapat stall', text: 'Sekalian intip kondisi di sebelahnya.' },
-            lose: { value: 'buffet', kicker: 'Yah, kalah cepat.', title: 'Ke buffet', text: '[Cerita saat makan di buffet.]' },
+            lose: { value: 'buffet', kicker: 'Yah, kalah cepat.', title: 'Ke buffet', text: 'Antrean stall penuh, jadi hari ini menu prasmanan. Tetap kenyang, dan meja panjangnya justru bikin ngobrol makin ramai.' },
           },
           skipLabel: 'Lewati (anggap kalah)',
         },
@@ -222,8 +221,8 @@ export default {
             type: 'hotspots',
             prompt: 'Intip sekitar',
             spots: [
-              { yaw: -30, pitch: -8, label: 'Stall', title: 'Stall', text: '[Menu/cerita di stall.]' },
-              { yaw: 70, pitch: -6, label: 'Sebelah', title: 'Buffet sebelah', text: '[Kondisi buffet di sebelah.]' },
+              { yaw: -30, pitch: -8, label: 'Stall', title: 'Stall', text: 'Menu yang paling cepat habis saat jam makan siang. Datang lebih awal, pilihanmu lebih banyak.' },
+              { yaw: 70, pitch: -6, label: 'Sebelah', title: 'Buffet sebelah', text: 'Di sebelahnya ada area prasmanan dengan meja panjang, pilihan aman kalau antrean stall sudah mengular.' },
             ],
           },
         },
@@ -233,7 +232,7 @@ export default {
           location: 'Buffet',
           media: pano('/assets/360/buffet.jpg', 'indoor', PAL.makan),
           view: { yaw: 0, pitch: -6 },
-          intro: { rows: ['Buffet'], text: '[Deskripsi buffet.]' },
+          intro: { rows: ['Buffet'], text: 'Area prasmanan dengan meja panjang. Tempat makan bersama sekaligus bertukar cerita antarangkatan.' },
         },
         {
           id: 'kelas-lagi',
@@ -266,7 +265,7 @@ export default {
         title: 'Asrama',
         sections: [
           { type: 'image', src: '/assets/foto/depan-asrama.jpg', caption: 'Depan asrama' },
-          { type: 'p', text: '[Pengenalan asrama.]' },
+          { type: 'p', text: 'Asrama menjadi rumah kedua: tempat istirahat, belajar bersama, dan menjalani keseharian di luar jam kelas.' },
           { type: 'caps', text: 'Fasilitas' },
           { type: 'list', items: ['Kamar', 'Ruang serba guna', 'Dapur', 'UKS', 'Musola', 'Plaza', 'Theater', 'Komunal 1, 2, 3, 5', 'Co-working space'] },
         ],
@@ -285,9 +284,9 @@ export default {
             unlockAfter: 2,
             items: [
               // view: kamera berputar ke fasilitas yang sedang dibahas
-              { title: 'Fasilitas 1', text: '[Ganti dengan fasilitas kamar asli.]', view: { yaw: -45, pitch: -10 } },
-              { title: 'Fasilitas 2', text: '[Ganti dengan fasilitas kamar asli.]', view: { yaw: 45, pitch: -8 } },
-              { title: 'Fasilitas 3', text: '[Ganti dengan fasilitas kamar asli.]', view: { yaw: 135, pitch: -5 } },
+              { title: 'Kasur', text: 'Tempat tidur untuk istirahat setelah hari yang padat. Kamar dipakai bersama, jadi kebiasaan rapi terbentuk sendiri.', view: { yaw: -45, pitch: -10 } },
+              { title: 'Lemari', text: 'Penyimpanan pakaian dan barang pribadi. Setiap peserta punya bagiannya masing-masing.', view: { yaw: 45, pitch: -8 } },
+              { title: 'Meja belajar', text: 'Sudut untuk mengerjakan tugas, mengulang materi, atau menyiapkan presentasi esok hari.', view: { yaw: 135, pitch: -5 } },
             ],
           },
         },
@@ -302,9 +301,9 @@ export default {
             type: 'hotspots',
             prompt: 'Temukan di sekitar ruang serba guna',
             spots: [
-              { yaw: -45, pitch: -6, label: 'Dapur', title: 'Dapur', text: 'Dapur ada di dekat ruang serba guna. [Detail]' },
-              { yaw: 45, pitch: -4, label: 'UKS', title: 'UKS', text: '[Detail UKS.]' },
-              { yaw: 135, pitch: -6, label: 'Musola', title: 'Musola', text: '[Detail musola.]' },
+              { yaw: -45, pitch: -6, label: 'Dapur & pantry', title: 'Dapur & pantry', text: 'Berada tepat di dekat ruang serba guna: tempat menyeduh minuman atau menyiapkan makanan kecil di sela kegiatan.' },
+              { yaw: 45, pitch: -4, label: 'UKS', title: 'UKS', text: 'Ruang kesehatan untuk pertolongan pertama ketika ada peserta yang kurang enak badan.' },
+              { yaw: 135, pitch: -6, label: 'Musola', title: 'Musola', text: 'Tempat ibadah yang bisa dijangkau tanpa keluar area asrama, termasuk di sela jam belajar.' },
             ],
           },
         },
@@ -314,7 +313,7 @@ export default {
           media: pano('/assets/360/plaza.jpg', 'outdoor', ['#7cbbe8', '#e1f0f8', '#8fa979', '#eceff1', '#0060af']),
           view: { yaw: 0, pitch: 6, fov: 85 },
           narration: { cues: [{ t: 0, text: 'Plaza, tempat berkumpul di ruang terbuka.' }] },
-          intro: { rows: ['Plaza'], text: '[Deskripsi plaza.]' },
+          intro: { rows: ['Plaza'], text: 'Ruang terbuka tempat peserta berkumpul, mengobrol, dan melepas penat setelah kelas.' },
         },
         {
           id: 'theater',
@@ -322,7 +321,7 @@ export default {
           media: pano('/assets/360/theater.jpg', 'indoor', ['#2a2f3a', '#3b4250', '#40332a', '#0060af', '#ffc20e']),
           view: { yaw: 0, pitch: 0 },
           narration: { cues: [{ t: 0, text: 'Theater. Tahan tombolnya untuk menyalakan panggung.' }] },
-          intro: { rows: ['Theater'], text: '[Deskripsi theater.]', hold: 2 },
+          intro: { rows: ['Theater'], text: 'Panggung untuk presentasi, pertunjukan bakat, dan acara bersama antarangkatan.', hold: 2 },
           // progres tahan -> kamera zoom (fov mengecil)
           interaction: { type: 'hold', label: 'tahan untuk menyalakan', icon: '🎬', duration: 2.2 },
           result: { kicker: 'Lampu menyala', title: 'Showtime!' },
@@ -337,12 +336,33 @@ export default {
             type: 'carousel',
             unlockAfter: 4,
             items: [
-              { title: 'Komunal 1', text: '[Deskripsi.]', media: pano('/assets/360/komunal-1.jpg', 'indoor', PAL.asrama), view: { yaw: 0 } },
-              { title: 'Komunal 2', text: '[Deskripsi.]', media: pano('/assets/360/komunal-2.jpg', 'indoor', PAL.publik), view: { yaw: 90 } },
-              { title: 'Komunal 3', text: '[Deskripsi.]', media: pano('/assets/360/komunal-3.jpg', 'indoor', PAL.kelas), view: { yaw: -90 } },
-              { title: 'Komunal 5', text: '[Deskripsi.]', media: pano('/assets/360/komunal-5.jpg', 'indoor', PAL.makan), view: { yaw: 180 } },
+              { title: 'Komunal 1', text: 'Titik kumpul paling ramai: tempat belajar bareng sebelum ujian dan mengobrol setelah kelas.', media: pano('/assets/360/komunal-1.jpg', 'indoor', PAL.asrama), view: { yaw: 0 } },
+              { title: 'Komunal 2', text: 'Ruang yang lebih tenang, cocok untuk diskusi kelompok kecil atau mengerjakan tugas.', media: pano('/assets/360/komunal-2.jpg', 'indoor', PAL.publik), view: { yaw: 90 } },
+              { title: 'Komunal 3', text: 'Sering dipakai untuk latihan presentasi dan persiapan kegiatan angkatan.', media: pano('/assets/360/komunal-3.jpg', 'indoor', PAL.kelas), view: { yaw: -90 } },
+              { title: 'Komunal 5', text: 'Tempat berkumpul santai di penghujung hari, saat cerita dan rencana esok hari bertukar.', media: pano('/assets/360/komunal-5.jpg', 'indoor', PAL.makan), view: { yaw: 180 } },
             ],
           },
+        },
+        {
+          id: 'kegiatan',
+          location: 'Plaza & Lapangan',
+          media: photo('/assets/photos/activity-performance.webp', 'room', PAL.publik),
+          narration: { cues: [{ t: 0, text: 'Di sela kesibukan, ada panggung dan lapangan yang menunggu giliran.' }] },
+          intro: {
+            rows: ['Bakat &', 'Kompetisi'],
+            text: 'Di tengah kesibukan perkuliahan, ada ruang untuk menunjukkan bakat, membangun kekompakan, dan menikmati semangat kompetisi bersama.',
+            hold: 2.6,
+          },
+          interaction: {
+            type: 'carousel',
+            unlockAfter: 2,
+            items: [
+              { title: 'Panggung bakat', text: 'Latihan berminggu-minggu, lalu satu penampilan yang membuat satu angkatan bersorak.', media: photo('/assets/photos/activity-performance.webp', 'room', PAL.publik) },
+              { title: 'Turnamen antarangkatan', text: 'Basket, futsal, dan permainan lain yang mempertemukan angkatan lama dan baru.', media: photo('/assets/photos/activity-sport.webp', 'room', PAL.makan) },
+            ],
+          },
+          claim: { id: 'kegiatan', icon: '🏆', kicker: 'Pengalaman didapat', label: 'Kegiatan & Kompetisi', text: 'Bakat, kekompakan, dan semangat kompetisi ikut terbawa pulang.' },
+          result: { kicker: 'Bukan hanya soal nilai', title: 'Tumbuh bareng!' },
         },
         {
           id: 'coworking',
@@ -377,7 +397,7 @@ export default {
       rows: ['SAMPAI', 'JUMPA'],
       kickerBottom: 'di BCA Learning Institute',
       tags: ['PPTI', 'PPBP'],
-      number: 'NO. 2026 · 360°',
+      number: 'PPTI · PPBP · 360°',
       claimsLabel: 'Dompet benefit kamu',
       replayLabel: 'Ulangi perjalanan',
       link: null, // { label: 'Info Beasiswa BCA', href: 'https://...' }

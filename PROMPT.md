@@ -2,6 +2,42 @@
 
 Prompt siap tempel untuk AI agent mana pun (Claude, ChatGPT/Codex, Cursor, Gemini, dsb).
 
+## Prompt terbaru: lanjutkan homepage + story dalam satu website
+
+```text
+Baca AGENTS.md, README.md, dan HOMEPAGE.md sebelum mengedit.
+Lanjutkan website Beasiswa BCA yang sudah ada. Story 360° adalah bagian dari website,
+bukan pengganti homepage. Pertahankan desain biru-putih BCA yang simple dan minimalist.
+
+Homepage terinspirasi Hack the North: ilustrasi perjalanan besar, narasi section yang
+mengalir, pilihan showcase yang mengganti konten, dan FAQ. Adaptasikan pola interaksinya,
+jangan menyalin aset, warna, teks, atau menambah keramaian visual yang tidak perlu.
+
+Homepage sudah memiliki hero peta kampus konseptual, tab PPTI/PPBP, manfaat, persyaratan,
+timeline seleksi, CTA Campus Tour, FAQ, checklist, menu mobile dan navigasi keyboard.
+Edit konten program/periode di src/landing-content.js, visual di src/landing-art.js,
+layout di src/landing.js + src/styles/landing.css. Jangan menghardcode fakta baru tanpa
+sumber. Simpan informasi pendaftaran di portal resmi BCA, jangan kumpulkan data pribadi
+atau mengklaim bahwa prototype ini situs resmi. Jangan membuat logo BCA palsu.
+
+Alur story seluruhnya di src/story.js. Pertahankan engine, efek lukisan, teks bergerak,
+chapter, hotspot, pilihan bercabang, claim benefit, dan penyimpanan progres yang sudah ada.
+Pertahankan lazy-loading tour dan tombol kembali ke homepage.
+
+PERUBAHAN YANG KUMAU:
+[ISI PERUBAHAN TAMPILAN/KONTEN]
+
+ALUR CERITA BARU:
+[ISI NARASI, CHAPTER, LOKASI, INTERAKSI, CABANG, DAN PENUTUP DI SINI]
+
+Gunakan aset milikku jika tersedia; media kosong harus memiliki fallback yang jelas.
+Jalankan npm test dan npm run build. Uji browser desktop 1440×900 dan mobile 375×812:
+menu, tab + keyboard, FAQ, checklist, CTA resmi, masuk/keluar tour. Jika alur story diubah,
+uji juga seluruh chapter dan cabangnya. Laporkan batasan yang belum selesai dengan jujur.
+```
+
+Bagian A–D di bawah tetap menjadi spesifikasi rinci engine story dan template alur.
+
 - **Bagian A**: prompt lengkap untuk membangun dari nol (spesifikasi final).
 - **Bagian B**: prompt singkat untuk melanjutkan codebase di folder ini.
 - **Bagian C**: template alur cerita. Isi, lalu tempel ke A atau B.

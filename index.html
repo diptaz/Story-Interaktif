@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0060af" />
-    <title>Campus Tour 360°</title>
+    <title>Beasiswa BCA | Temukan Perjalananmu</title>
+    <meta name="description" content="Konsep pengalaman Beasiswa BCA: kenali PPTI dan PPBP, manfaat, tahapan seleksi, lalu bayangkan perjalanan sebagai awardee lewat cerita interaktif 360°. Bukan situs resmi BCA." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Plus Jakarta Sans: sans modern bulat yang serasi dengan tampilan web BCA -->
@@ -14,15 +15,21 @@
     />
   </head>
   <body>
-    <div id="app">
-      <!-- Layer 0: lukisan (Three.js shader: kuas cat minyak, parallax, tepi sobek) -->
-      <canvas id="painter" aria-hidden="true"></canvas>
-      <!-- Layer 1: DOM milik scene aktif (judul, teks, interaksi) -->
-      <main id="stage"></main>
-      <!-- Layer 2: UI tetap (logo, menu, buku kiri, subtitle kanan, tombol musik) -->
-      <div id="ui"></div>
-      <!-- Layer 3: menu overlay, transisi pola, loader -->
-      <div id="overlay"></div>
+    <!-- Halaman utama beasiswa. Kisah awardee dibuka sebagai experience terpisah, tetapi tetap satu website. -->
+    <div id="landing"></div>
+    <noscript><p>Aktifkan JavaScript untuk menjelajahi website konsep ini. Informasi dan pendaftaran tersedia di <a href="https://karir.bca.co.id/beasiswa-bca">portal resmi Beasiswa BCA</a>.</p></noscript>
+
+    <div id="story-app" hidden aria-label="Kisah awardee PPTI dan PPBP di BCA Learning Institute">
+      <div id="app">
+        <!-- Layer 0: panorama 360 / lukisan (Three.js) -->
+        <canvas id="painter" aria-hidden="true"></canvas>
+        <!-- Layer 1: DOM milik scene aktif -->
+        <main id="stage"></main>
+        <!-- Layer 2: UI tetap -->
+        <div id="ui"></div>
+        <!-- Layer 3: menu, transisi, loader -->
+        <div id="overlay"></div>
+      </div>
     </div>
 
     <script type="module" src="/src/main.js"></script>

@@ -4,6 +4,14 @@ Baca file ini sebelum mengubah kode. Semua agent memakai aturan yang sama.
 
 ## Ringkasan project
 
+Website kini dibuka dari **homepage Beasiswa BCA**; story 360° menjadi experience opsional.
+Homepage: `landing.js`, `landing-content.js`, `landing-art.js`, `styles/landing.css`.
+Entry `main.js` memuat `tour-app.js` secara dinamis saat CTA tour diklik. Jangan memuat
+Three.js/audio atau mengunci scroll sebelum tour dibuka. Jangan menghapus homepage.
+Referensi homepage: https://hackthenorth.com/ (journey, ilustrasi, showcase; bukan aset/copy).
+Pertahankan biru BCA, putih, whitespace, menu mobile, keyboard tabs, reduced-motion,
+tautan resmi, dan penanda konsep nonresmi. Baca `HOMEPAGE.md` untuk konteks.
+
 **Campus Tour 360° PPTI & PPBP**: web cerita interaktif untuk pengenalan beasiswa PPTI/PPBP di kampus
 BCA Learning Institute (BLI). Pengguna menjelajah foto **360°** yang dirender bergaya **lukisan**
 (shader Three.js), mengikuti alur cerita per chapter, melakukan interaksi kecil, dan meng-**claim**
@@ -34,7 +42,11 @@ Parameter URL untuk tes:
 
 ```
 index.html            layer: canvas#painter, main#stage, #ui, #overlay
-src/main.js           bootstrap: painter, audio, UI, router, loader, ?debug
+src/main.js           homepage + lazy import tour
+src/tour-app.js       bootstrap: painter, audio, UI, router, loader, ?debug
+src/landing*.js       komponen homepage, konten beasiswa, ilustrasi SVG orisinal
+src/decision-content.js  data + fungsi murni: lokasi tes, cek kelayakan, setelah program, mode orang tua
+src/outreach-content.js  galeri bukti (peserta/alumni/lulusan) + BK kit (kode sekolah, QR, teks info)
 src/story.js          SEMUA konten cerita (satu-satunya file yang diedit untuk alur)
 src/core/
   painter.js          renderer Three.js: 360 (equirect) + flat, efek lukisan, kamera, project/unproject
@@ -87,6 +99,19 @@ dan setiap `await` dibungkus `scope.guard()` / `scope.wait()` supaya berhenti sa
   nextLabel, skipLabel, skippable,
 }
 ```
+
+## Pilar proposal (BAB III: SATUKAN · TUNJUKKAN · SEBARKAN)
+
+Homepage harus menjaga fitur "decision information" berikut tetap terbuka tanpa login:
+lokasi tes yang bisa dicari (#lokasi-tes), cek kelayakan mandiri (#kecocokan), kisah awardee 360°
+(#campus-tour), penjelasan setelah program termasuk trade-off (#setelah-program), dan mode orang tua
+dengan ringkasan yang bisa dibagikan (#orang-tua). Semua jawaban self-check hanya di perangkat user.
+Galeri bukti (#bukti) dan BK kit (#guru-bk) sudah ada. Kartu galeri masih CONTOH STRUKTUR: wajib
+ditandai sampai diganti cerita asli yang sudah diizinkan (tes menjaga aturan ini).
+Belum ada: analytics funnel dan pencatatan kode referral di sisi server.
+
+Kontras warna: jalankan audit di browser sebelum selesai; teks kecil memakai var(--sky-ink),
+bukan var(--sky), dan teks di dalam kartu gelap memakai color: inherit.
 
 ## Aturan desain (jangan dilanggar tanpa diminta)
 

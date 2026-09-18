@@ -4,12 +4,12 @@ import { store } from '../core/store.js';
 import { audio } from '../core/audio.js';
 import { el, esc } from '../core/text-fx.js';
 
-export function createChrome(root, story, { onMenu }) {
+export function createChrome(root, story, { onMenu, onHome }) {
   const { brand = {} } = story.meta;
 
   const header = el('header', 'chrome-header');
   header.innerHTML = `
-    <a class="brand" href="#" aria-label="${esc(brand.ariaLabel ?? story.meta.title)}">
+    <a class="brand" href="#campus-tour" aria-label="Kembali ke halaman Beasiswa BCA" title="Kembali ke halaman Beasiswa BCA">
       ${
         brand.logo
           ? `<img class="brand-logo" src="${esc(brand.logo)}" alt="" />`
@@ -22,7 +22,10 @@ export function createChrome(root, story, { onMenu }) {
       <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="menu-text">Menu</span>
     </button>`;
-  header.querySelector('.brand').addEventListener('click', (e) => e.preventDefault());
+  header.querySelector('.brand').addEventListener('click', (e) => {
+    e.preventDefault();
+    onHome?.();
+  });
   // logo gagal dimuat -> kembali ke wordmark teks
   header.querySelector('.brand-logo')?.addEventListener('error', (e) => {
     e.target.replaceWith(Object.assign(el('span', 'brand-wordmark'), { textContent: brand.wordmark ?? 'LOGO' }));

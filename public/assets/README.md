@@ -2,6 +2,11 @@
 
 Semua file opsional. Kalau belum ada, aplikasi memakai placeholder otomatis.
 Nama file di bawah sesuai `src/story.js` (ubah di sana kalau mau nama lain).
+Tiga foto dari pengguna sudah dipasang: `360/kelas.jpg` (panorama ruang kelas),
+`360/depan-kelas.jpg` (panorama koridor/area break), dan
+`photos/manuscript-building.webp` (foto biasa The Manuscript untuk cover/prolog).
+Foto The Manuscript **bukan** equirectangular 2:1, jadi ditampilkan sebagai gambar datar,
+bukan panorama 360° palsu. Pastikan izin penggunaan foto sebelum publikasi.
 
 ## brand/
 | File | Keterangan |
@@ -11,9 +16,8 @@ Nama file di bawah sesuai `src/story.js` (ubah di sana kalau mau nama lain).
 ## 360/ (equirectangular 2:1, disarankan 4096×2048 JPG ±1-2 MB)
 | File | Dipakai di |
 | --- | --- |
-| `manuscript.jpg` | Kartu peserta, prolog, cover & step The Manuscript |
-| `kelas.jpg` | Ruang kelas, pembagian fasilitas, kelas lagi |
-| `depan-kelas.jpg` | Break pagi |
+| `kelas.jpg` ✅ | Ruang kelas, pembagian fasilitas, kelas lagi |
+| `depan-kelas.jpg` ✅ | Break pagi |
 | `area-makan.jpg` | War makan siang |
 | `stall.jpg` | Cabang menang (stall) |
 | `buffet.jpg` | Cabang kalah (buffet) |
@@ -25,8 +29,10 @@ Nama file di bawah sesuai `src/story.js` (ubah di sana kalau mau nama lain).
 | `komunal-1.jpg`, `komunal-2.jpg`, `komunal-3.jpg`, `komunal-5.jpg` | Ruang komunal |
 | `coworking.jpg` | Co-working space |
 
-## foto/ (foto biasa untuk buku saku, 1200×900 JPG)
-`manuscript.jpg`, `kelas.jpg`, `break.jpg`, `makan.jpg`, `depan-asrama.jpg`
+## photos/ dan foto/
+`photos/manuscript-building.webp` ✅ dipakai di cover homepage, prolog, step
+The Manuscript, dan buku saku. Buku saku juga memakai dua panorama yang tersedia
+untuk foto ruang kelas/break. Yang masih belum ada: foto area makan dan depan asrama.
 
 ## audio/ (mp3)
 - Musik: `track-intro.mp3`, `track-kampus.mp3`, ... (isi `music` di story.js)

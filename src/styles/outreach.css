@@ -1,0 +1,428 @@
+/* Galeri bukti (TUNJUKKAN) & BK kit (SEBARKAN).
+   Semua warna memakai token di tokens.css supaya konsisten dengan section lain. */
+
+/* ----------------------------- galeri bukti ----------------------------- */
+.evidence-section {
+  background: var(--paper);
+}
+.evidence-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.evidence-filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--navy);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.evidence-filters button span {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--ice);
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+}
+.evidence-filters button:hover {
+  border-color: var(--blue);
+}
+.evidence-filters button[aria-pressed='true'] {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: var(--white);
+}
+.evidence-filters button[aria-pressed='true'] span {
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--white);
+}
+.evidence-count {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+.evidence-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--white);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.evidence-card:hover {
+  box-shadow: 0 14px 30px rgba(0, 51, 110, 0.1);
+  transform: translateY(-4px);
+}
+.evidence-card figure {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--ice);
+}
+.evidence-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.evidence-card figcaption {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(0, 31, 69, 0.82);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.evidence-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px 20px 20px;
+}
+.evidence-who {
+  margin: 0 0 6px;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.evidence-card h3 {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.25;
+}
+.evidence-activity {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.evidence-card dl {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.evidence-card dt {
+  color: var(--sky-ink);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.evidence-card dd {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.evidence-card dd:last-child {
+  margin-bottom: 0;
+}
+.evidence-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 22px 0 0;
+  padding: 14px 18px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  background: var(--white);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.evidence-note b {
+  color: var(--navy);
+}
+.evidence-note svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  color: var(--blue);
+}
+
+/* -------------------------------- BK kit -------------------------------- */
+.bk-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 40px);
+}
+.bk-points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+.bk-points article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--white);
+}
+.bk-index {
+  color: var(--sky-ink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.bk-points h3 {
+  margin: 8px 0 6px;
+  font-size: 17px;
+}
+.bk-points p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+.bk-tool {
+  padding: clamp(22px, 3vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--ice);
+}
+.bk-field {
+  display: grid;
+  gap: 8px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bk-field input {
+  padding: 13px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.bk-field input:focus {
+  border-color: var(--blue);
+  outline: none;
+}
+.bk-hint {
+  margin: 10px 0 16px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.bk-output {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--white);
+}
+.bk-code {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.bk-code span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.bk-code b {
+  color: var(--navy);
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 17px;
+  letter-spacing: 0.06em;
+}
+.bk-qr {
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+  padding: 12px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+}
+.bk-qr img {
+  width: 150px;
+  height: 150px;
+}
+.bk-qr-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12.5px;
+  text-align: center;
+}
+.bk-link {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+}
+.bk-link:empty {
+  display: none;
+}
+.bk-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+.bk-actions .site-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.bk-actions .site-button svg {
+  width: 18px;
+  height: 18px;
+}
+.button-ghost-blue {
+  border-color: var(--blue);
+  background: var(--white);
+  color: var(--blue);
+}
+.button-ghost-blue:hover {
+  background: var(--white);
+  border-color: var(--navy);
+  color: var(--navy);
+}
+.bk-feedback {
+  min-height: 18px;
+  margin: 12px 0 0;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 600;
+}
+.bk-feedback:empty {
+  display: none;
+}
+.bk-agenda {
+  margin-top: 26px;
+  padding: clamp(20px, 3vw, 28px);
+  border-radius: 22px;
+  background: var(--navy);
+  color: var(--white);
+}
+.bk-agenda h3 {
+  margin: 0 0 14px;
+  color: inherit;
+  font-size: 18px;
+}
+.bk-agenda ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+  padding-left: 20px;
+}
+.bk-agenda li {
+  font-size: 14px;
+  line-height: 1.55;
+  opacity: 0.94;
+}
+
+@media (max-width: 900px) {
+  .bk-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* --------------------------- lembar cetak BK --------------------------- */
+.bk-print-sheet {
+  display: none;
+}
+@media print {
+  body > *:not(.bk-print-sheet) {
+    display: none !important;
+  }
+  .bk-print-sheet {
+    display: block;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #101820;
+    font-family: var(--font-body, system-ui), sans-serif;
+  }
+  .bk-print-sheet header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 14px;
+    border-bottom: 3px solid #00336e;
+  }
+  .bk-print-sheet header p {
+    margin: 0 0 4px;
+    color: #0060af;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+  .bk-print-sheet h1 {
+    margin: 0;
+    font-size: 22px;
+  }
+  .bk-print-sheet h2 {
+    margin: 18px 0 6px;
+    color: #00336e;
+    font-size: 14px;
+  }
+  .bk-print-sheet p,
+  .bk-print-sheet li {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .bk-print-sheet ul,
+  .bk-print-sheet ol {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .bk-print-sheet footer {
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid #b7c7d6;
+  }
+  .bk-print-note {
+    color: #5b6b80;
+    font-style: italic;
+  }
+}
+
+.bk-agenda li,
+.bk-agenda ol {
+  color: inherit;
+}

@@ -1,72 +1,67 @@
 import './styles/tokens.css';
 import './styles/base.css';
-import './styles/ui.css';
-import './styles/scenes.css';
-import './styles/interactions.css';
+import './styles/landing.css';
+import './styles/landing-editorial.css';
+import './styles/decision.css';
+import './styles/outreach.css';
+import { createLanding } from './landing.js';
 
-import story from './story.js';
-import { store } from './core/store.js';
-import { audio } from './core/audio.js';
-import { Painter } from './core/painter.js';
-import { createRouter } from './core/router.js';
-import { createChrome } from './ui/chrome.js';
-import { createBook } from './ui/book.js';
-import { createSubtitles } from './ui/subtitles.js';
-import { createNotif } from './ui/notif.js';
-import { createMenu } from './ui/menu.js';
-import { createTransition } from './ui/transition.js';
-import { runLoader } from './ui/loader.js';
-import { installHoverSfx } from './ui/cta.js';
+const landingRoot = document.querySelector('#landing');
+const storyApp = document.querySelector('#story-app');
+let storyStarted = false;
 
-const $ = (s) => document.querySelector(s);
-const params = new URLSearchParams(location.search);
-
-// ?unlock  -> buka semua chapter (untuk ngetes)
-// ?reset   -> hapus progres tersimpan
-if (params.has('reset')) store.resetProgress();
-if (params.has('unlock')) store.set({ unlocked: story.chapters.length, completed: story.chapters.map((_, i) => i) });
-
-document.documentElement.lang = story.meta.lang ?? 'id';
-document.title = story.meta.title;
-
-const painter = new Painter($('#painter'), story.art);
-audio.init(story);
-installHoverSfx();
-
-const ctx = { story, painter, stage: $('#stage'), resumeRoute: location.hash.slice(1) || null };
-const uiRoot = $('#ui');
-const overlay = $('#overlay');
-ctx.ui = {
-  chrome: createChrome(uiRoot, story, { onMenu: () => ctx.ui.menu.toggle() }),
-  book: createBook(uiRoot),
-  subtitles: createSubtitles(uiRoot),
-  // menu di layer UI: logo, tombol tutup, dan kontrol suara tetap terlihat di atasnya
-  menu: createMenu(uiRoot, story, { onSelect: (i) => ctx.router.go(`chapter-${i + 1}`) }),
-  notif: createNotif(overlay),
-};
-ctx.wipe = createTransition(overlay);
-ctx.router = createRouter(ctx);
-
-// ?debug -> tampilkan yaw/pitch kamera; klik foto 360 untuk mencatat koordinat hotspot/view
-if (params.has('debug')) {
-  const box = document.createElement('pre');
-  box.className = 'debug-box';
-  overlay.append(box);
-  let last = '';
-  painter.onFrame(() => {
-    const c = painter.cam;
-    const yaw = ((((c.yaw % 360) + 540) % 360) - 180).toFixed(0);
-    box.textContent = `view: { yaw: ${yaw}, pitch: ${Math.round(c.pitch)}, fov: ${Math.round(c.fov)} }\n${last}`;
-  });
-  painter.on('tap', (e) => {
-    const p = painter.unproject(e.clientX, e.clientY);
-    last = `klik: { yaw: ${p.yaw}, pitch: ${p.pitch} }`;
-    console.info('[debug] titik 360 ->', `{ yaw: ${p.yaw}, pitch: ${p.pitch} }`);
-  });
+function returnToScholarshipPage() {
+  // Releases WebGL, audio, and scene listeners; story progress remains in localStorage.
+  history.replaceState(null, '', '#campus-tour');
+  location.reload();
 }
 
-await runLoader(overlay, story, painter);
-ctx.router.go('intro', { transition: false });
+async function startTour(resumeRoute = 'intro') {
+  if (storyStarted) return;
+  storyStarted = true;
+  landingRoot.hidden = true;
+  storyApp.hidden = false;
+  document.body.classList.add('story-mode');
+  window.scrollTo(0, 0);
 
-// akses cepat dari console saat debugging
-Object.assign(window, { __story: ctx });
+  const loading = document.createElement('div');
+  loading.className = 'tour-bootstrap';
+  loading.setAttribute('role', 'status');
+  loading.textContent = 'Menyiapkan kisah awardee…';
+  storyApp.append(loading);
+  try {
+    // Three.js, GSAP, audio and the story content are not needed on the homepage.
+    const { mountTour } = await import('./tour-app.js');
+    loading.remove();
+    await mountTour({ resumeRoute, onHome: returnToScholarshipPage });
+  } catch (error) {
+    console.error('[Kisah Awardee] Unable to start:', error);
+    loading.remove();
+    const message = document.createElement('div');
+    message.className = 'tour-bootstrap tour-bootstrap--error';
+    message.setAttribute('role', 'alert');
+    const title = document.createElement('h2');
+    title.textContent = 'Cerita interaktif belum dapat dibuka.';
+    const hint = document.createElement('p');
+    hint.textContent = 'Periksa koneksi atau coba browser yang mendukung WebGL. Informasi beasiswa tetap dapat dibaca.';
+    const back = document.createElement('button');
+    back.textContent = 'Kembali ke informasi beasiswa';
+    back.addEventListener('click', returnToScholarshipPage);
+    message.append(title, hint, back);
+    storyApp.append(message);
+    back.focus();
+  }
+}
+
+createLanding(landingRoot, {
+  onTour: () => {
+    history.replaceState(null, '', '#tour');
+    startTour();
+  },
+});
+
+// Legacy developer links continue to work after the participant-card gate.
+const hashRoute = location.hash.slice(1);
+if (hashRoute === 'tour' || hashRoute === 'intro' || hashRoute === 'outro' || /^chapter-\d+$/.test(hashRoute)) {
+  startTour(hashRoute === 'tour' ? 'intro' : hashRoute);
+}

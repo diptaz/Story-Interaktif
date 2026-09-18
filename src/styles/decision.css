@@ -1,0 +1,529 @@
+/* Lokasi tes, cek kelayakan, setelah program, dan mode orang tua.
+   Selector di-scope ke section baru supaya tidak mengganggu style homepage lain. */
+
+/* ------------------------------ lokasi tes ------------------------------ */
+.city-finder {
+  padding: clamp(20px, 3vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 50px rgba(0, 31, 69, 0.08);
+}
+.city-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.city-search {
+  display: flex;
+  flex: 1 1 260px;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--ice);
+  color: var(--blue);
+}
+.city-search svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+.city-search input {
+  width: 100%;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+}
+.city-search input:focus {
+  outline: none;
+}
+.city-search:focus-within {
+  border-color: var(--blue);
+}
+.city-filters {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--ice);
+}
+.city-filters button {
+  padding: 9px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--blue);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.city-filters button[aria-pressed='true'] {
+  background: var(--blue);
+  color: #fff;
+}
+.city-count {
+  margin: 18px 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+.city-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.city-group h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  color: var(--blue);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.city-group h3 span {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--ice);
+  font-size: 11px;
+  letter-spacing: 0;
+}
+.city-group ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.city-group li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  background: var(--paper);
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.city-tag {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+}
+.city-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.city-note svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  color: var(--blue);
+}
+
+/* ----------------------------- cek kelayakan ----------------------------- */
+.fit-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 40px);
+}
+.fit-form {
+  display: grid;
+  gap: 12px;
+}
+.fit-item {
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+}
+.fit-item legend {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 0;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.fit-item legend b {
+  color: var(--sky-ink);
+  font-size: 13px;
+}
+.fit-hint {
+  margin: 6px 0 12px 30px;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+.fit-choices {
+  display: flex;
+  gap: 8px;
+  margin-left: 30px;
+}
+.fit-choices label {
+  position: relative;
+  padding: 8px 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.fit-choices input {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+.fit-choices label:has(input:checked) {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+.fit-choices label:has(input:focus-visible) {
+  outline: 2px solid var(--sky);
+  outline-offset: 3px;
+}
+.fit-reset {
+  justify-self: start;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ice);
+  color: var(--blue);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+.fit-result {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  gap: 12px;
+}
+.fit-result-card {
+  padding: clamp(22px, 3vw, 30px);
+  border-radius: 24px;
+  background: linear-gradient(150deg, #0a4c93, #0d6ea9);
+  box-shadow: 0 24px 50px rgba(0, 31, 69, 0.22);
+  color: #fff;
+}
+.fit-result-card[data-status='check'] {
+  background: linear-gradient(150deg, #0a52a0, #4d7fb8);
+}
+.fit-result-card[data-status='not-yet'] {
+  background: linear-gradient(150deg, #00336e, #2c4f7c);
+}
+.fit-progress {
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+}
+.fit-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.fit-status {
+  margin: 14px 0 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  opacity: 0.95;
+  text-transform: uppercase;
+}
+.fit-result-card h3 {
+  margin: 0 0 8px;
+  font-size: clamp(22px, 2.4vw, 28px);
+  line-height: 1.15;
+}
+.fit-text {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  opacity: 1;
+}
+.fit-blockers {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.fit-blockers li {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.fit-blockers:empty {
+  display: none;
+}
+.fit-cta {
+  margin-top: 18px;
+}
+.fit-privacy {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.fit-privacy svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: #22b573;
+}
+
+/* --------------------------- setelah program --------------------------- */
+.after-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 40px);
+}
+.after-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+.after-facts article {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fff;
+}
+.after-index {
+  color: var(--sky-ink);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.after-facts h3 {
+  margin: 8px 0;
+  font-size: 19px;
+}
+.after-facts p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.after-tradeoffs {
+  padding: clamp(22px, 3vw, 30px);
+  border-radius: 24px;
+  background: var(--ice);
+}
+.after-tradeoffs h3 {
+  margin: 0 0 14px;
+  color: var(--blue);
+  font-size: 18px;
+}
+.after-tradeoffs ul {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+.after-tradeoffs li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.after-tradeoffs li::before {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sky);
+  content: '';
+}
+.after-tradeoffs p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+/* ----------------------------- mode orang tua ----------------------------- */
+.parent-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(22px, 3vw, 44px);
+  padding: clamp(24px, 4vw, 52px);
+  border-radius: 28px;
+  background: linear-gradient(140deg, #00336e, #0060af 55%, #1394dc);
+  box-shadow: 0 30px 60px rgba(0, 31, 69, 0.28);
+  color: #fff;
+}
+.parent-copy .site-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #dbefff;
+}
+.parent-copy .site-eyebrow svg {
+  width: 18px;
+  height: 18px;
+}
+.parent-copy h2 {
+  margin: 10px 0 12px;
+}
+.parent-copy h2 span {
+  color: #7fd0f5;
+}
+.parent-copy > p {
+  margin: 0 0 20px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  opacity: 0.94;
+}
+.parent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.parent-actions .site-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.parent-actions .site-button svg {
+  width: 18px;
+  height: 18px;
+}
+.button-ghost {
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  background: transparent;
+  color: #fff;
+}
+.parent-feedback {
+  min-height: 20px;
+  margin: 12px 0 0;
+  color: #cfe9fb;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.parent-facts {
+  display: grid;
+  gap: 10px;
+  padding: clamp(18px, 2vw, 26px);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.parent-fact h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+.parent-fact p {
+  margin: 0;
+  font-size: 13.8px;
+  line-height: 1.55;
+  opacity: 0.92;
+}
+.parent-facts .text-link {
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .fit-layout,
+  .after-grid,
+  .parent-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fit-result {
+    position: static;
+  }
+}
+@media (max-width: 560px) {
+  .city-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .city-filters {
+    justify-content: space-between;
+  }
+  .city-filters button {
+    flex: 1;
+  }
+  .fit-hint,
+  .fit-choices {
+    margin-left: 0;
+  }
+}
+
+/* Foto yang belum tersedia: blok gradien dengan teks alt, bukan ikon rusak. */
+.photo-missing {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  padding: 18px;
+  border-radius: inherit;
+  background: linear-gradient(140deg, #093f80, #0d6ea9);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+.gallery-photo .photo-missing {
+  aspect-ratio: 3 / 2;
+}
+
+/* Teks di dalam kartu gelap harus mewarisi warna kartunya, bukan warna teks global. */
+.fit-result-card h3,
+.fit-result-card p,
+.fit-result-card li,
+.fit-result-card .fit-status,
+.fit-result-card .fit-text {
+  color: inherit;
+}
+.parent-card h2,
+.parent-card h3,
+.parent-card p,
+.parent-card li,
+.parent-card .parent-fact p {
+  color: inherit;
+}
+.parent-fact p {
+  opacity: 0.95;
+}
